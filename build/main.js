@@ -55935,6 +55935,10 @@ var GamePage = (function () {
         this.gameService = gameService;
         this.alertCtrl = alertCtrl;
         this.toastCtrl = toastCtrl;
+        this.diffCube = {
+            row: this.gameService.random(0, this.gameService.rows - 1),
+            column: this.gameService.random(0, this.gameService.columns - 1)
+        };
     }
     GamePage.prototype.setDefaults = function () {
         this.defaultFocusCube = {
@@ -56071,13 +56075,16 @@ var GamePage = (function () {
         }
     };
     GamePage.prototype.pauseGame = function () {
-        this.isPause = true;
-        clearInterval(this.gameService.timer);
-        this.gameService.timer = 0;
+        if (this.gameService.timer) {
+            this.isPause = true;
+            clearInterval(this.gameService.timer);
+        }
     };
     GamePage.prototype.resumeGame = function () {
-        this.isPause = false;
-        this.gameService.timer = setInterval(this.tick(this), 1000);
+        if (this.gameService.timer) {
+            this.isPause = false;
+            this.gameService.timer = setInterval(this.tick(this), 1000);
+        }
     };
     GamePage.prototype.gameOver = function () {
         var _this = this;
@@ -56283,7 +56290,7 @@ var SettingsPage = (function () {
     }
     SettingsPage.prototype.ionViewDidLoad = function () {
         // this.navBar.setHidden(true);
-        this.navCtrl.swipeBackEnabled = false;
+        this.navCtrl.swipeBackEnabled = true;
     };
     return SettingsPage;
 }());
