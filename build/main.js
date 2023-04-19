@@ -56231,7 +56231,7 @@ var HomePage = (function () {
         }
     };
     HomePage.prototype.nextLevel = function () {
-        if (this.level > 50) {
+        if (this.level > 10000) {
             this.setDefaults();
         }
         else {
